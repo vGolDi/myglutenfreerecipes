@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>GolDi</title>
+    <link rel="stylesheet" href="../css/website.css">
+    <link rel="stylesheet" href="../css/recipesPage.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://codepen.io/nodws/pen/mdQoEB.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ysabeau:ital,wght@0,200;0,500;1,800&display=swap');
+        </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+</head>
+<body>
+    <header>
+        <div class="content">
+            <hgroup>
+                <h1>My GlutenFree Recipies</h1>
+            </hgroup>
+        </div>
+        <div class="overlay"></div>
+        <script> // .js skrypt do blurowawania tła
+            var $content = $('header .content')
+            , $blur    = $('header .overlay')
+            , wHeight  = $(window).height();
+
+            $(window).on('resize', function(){
+            wHeight = $(window).height();
+            });
+
+            window.requestAnimFrame = (function()
+            {
+            return  window.requestAnimationFrame       ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame    ||
+                    function( callback ){
+                        window.setTimeout(callback, 1000 / 60);
+                    };
+            })();
+
+            function Scroller()
+            {
+            this.latestKnownScrollY = 0;
+            this.ticking            = false;
+            }
+
+            Scroller.prototype = {
+            
+            init: function() {
+                window.addEventListener('scroll', this.onScroll.bind(this), false);
+                $blur.css('background-image',$('header:first-of-type').css('background-image'));
+            },
+
+
+            onScroll: function() {
+                this.latestKnownScrollY = window.scrollY;
+                this.requestTick();
+            },
+
+            
+            requestTick: function() {
+                if( !this.ticking ) {
+                window.requestAnimFrame(this.update.bind(this));
+                }
+                this.ticking = true;
+            },
+
+            update: function() {
+                var currentScrollY = this.latestKnownScrollY;
+                this.ticking       = false;
+                
+                
+                var slowScroll = currentScrollY / 2
+                , blurScroll = currentScrollY * 2
+                , opaScroll = 2 - currentScrollY / 700;
+            if(currentScrollY > wHeight)
+                $('nav').css('position','fixed');
+            else
+                $('nav').css('position','absolute');
+                
+                $content.css({
+                'transform'         : 'translateY(' + slowScroll + 'px)',
+                '-moz-transform'    : 'translateY(' + slowScroll + 'px)',
+                '-webkit-transform' : 'translateY(' + slowScroll + 'px)',
+                'opacity' : opaScroll
+                });
+                
+                $blur.css({
+                'opacity' : blurScroll / wHeight
+                });
+            }
+            };
+
+
+            var scroller = new Scroller();  
+            scroller.init();
+        </script>
+    </header>
+    <section class="site">
+        <nav>
+            <a href="../firstpage.html">Strona Główna</a>
+            <a href="../przepisy.html">Przepisy</a>
+        </nav>
+        
+    </section>
+    
+
+    <div class="container1">
+        <div class="categories">
+          <h2>Kategorie</h2>
+          <div class="container2" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+          <ul>
+            <li><a href="desery.html">Desery</a></li>
+            <li><a href="#">Dania główne</a></li>
+            <li><a href="#">Przekąski</a></li>
+          </ul>
+        </div>
+        <div class="recipespage">
+            <h2>Pizza bez Glutenu</h2>
+            <img src="../food.jpg" alt="Pizza bez Glutenu"> 
+            <div class="recipesamount" style="margin-bottom: 10px;">
+                <h5>Składniki na ciasto</h5>
+                <b>Na 2 średnie picce</b>
+                <ul>
+                    <li>120 gram mąki ryżowej</li>
+                    <li>120 gram mąki gryczanej/owsianej</li>
+                    <li>80 gram skrobi ziemniaczanej/kukurydzianej</li>
+                    <li>2 łyżki łupin babki jajowatej/nasion chia</li>
+                    <li style="display: inline;">około 1 szklanki ciepłej wody</li><li class="special"  style=" display: inline;"> (Może być potrzebne więcej)</li>
+                    <li>1 łyżeczka curku</li>
+                    <li>10 gram drożdży suchych</li>
+                    <li>1 łyżeczka soli</li>
+                    <li>2 łyżeczki oliwy/oleju</li>
+                </ul>
+            </div>    
+                <div class="recipesamount">
+                <h5>Przygotowanie</h5>
+                <ul>
+                    <li>1. Do miski wsypuję wszystkie suche składniki, szybko je mieszam ze sobą. Dodaję oliwę oraz połowę wody. Mieszam, powoli dolewając resztę wody</li>
+                    <li class="special">(1.5 Nie zawsze użyjemy całej wody, czasami będziemy potrzebować więcej. Ciasto powinno być gęste, ale nie mocno rozlewające się.)</li>
+                    <li>2. Ciasto przykrywamy i odkładamy do ciepłego miejsca, tak z 30 min minimum. Ważne żeby podwoiło swoją objętość.</li>
+                    <li>3. Pod koniec rośnięcia ciasta, nagrzewamy pierkarnik do 240 st. celcjusza.</li>
+                    <li>4. Ciasto formujemy na kształt pizzy, na dowolną grubość, jaką preferujemy.</li>
+                    <li>5. Wstawiamy do nagrzanego piekarnika, na około 10-12 minut, czasami na 15 min.</li>
+                </ul>
+                </div>
+           
+        </div>   
+      </div>
+
+      <script src="collapsemenu.js"></script>     
+</body>
+</html>
